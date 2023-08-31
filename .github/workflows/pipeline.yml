@@ -56,8 +56,6 @@ jobs:
         shell: bash
         run : |
           Build/Release/net6/SaveFileMapping.exe
-          ls Build/Release/net6/
-          ls .
       - name: Build packages
         shell: bash
         run: |
