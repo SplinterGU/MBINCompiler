@@ -101,7 +101,6 @@ jobs:
       - name: Rename files for release
         shell: bash
         run: |
-          mkdir -p win-x64-net6
           mkdir -p win-x64-net7
           mkdir -p linux-x64-net6
           mkdir -p linux-x64-net7
@@ -111,26 +110,16 @@ jobs:
           cp MBINCompiler-Windows-net7.0/libMBIN.dll libMBIN-dotnet7.dll
           cp MBINCompiler-report/report.json report.json
           cp savedata-mapping/mapping.json mapping.json
-          cp MBINCompiler-Windows-net6.0/MBINCompiler.exe win-x64-net6/MBINCompiler.exe
-          cp MBINCompiler-Windows-net6.0/libMBIN.dll win-x64-net6/libMBIN.dll
-          cp MBINCompiler-report/report.json win-x64-net6/report.json
-          cp savedata-mapping/mapping.json win-x64-net6/mapping.json
-          cd win-x64-net6
-          7z a -tzip ../MBINCompiler-win-x64-dotnet6.zip MBINCompiler.exe libMBIN.dll report.json mapping.json
-          cd -
+          7z a -tzip MBINCompiler-win-x64-dotnet6.zip MBINCompiler.exe libMBIN.dll report.json mapping.json
           cp MBINCompiler-Windows-net7.0/MBINCompiler.exe win-x64-net7/MBINCompiler.exe
           cp MBINCompiler-Windows-net7.0/libMBIN.dll win-x64-net7/libMBIN.dll
-          cp MBINCompiler-report/report.json win-x64-net7/report.json
-          cp savedata-mapping/mapping.json win-x64-net7/mapping.json
-          cd win-x64-net7
-          7z a -tzip ../MBINCompiler-win-x64-dotnet7.zip MBINCompiler.exe libMBIN.dll report.json mapping.json
-          cd -
+          7z a -tzip MBINCompiler-win-x64-dotnet7.zip ./win-x64-net7/MBINCompiler.exe ./win-x64-net7/libMBIN.dll report.json mapping.json
           cp MBINCompiler-Ubuntu-net6.0/MBINCompiler.exe linux-x64-net6/MBINCompiler
           cp MBINCompiler-Ubuntu-net6.0/libMBIN.dll linux-x64-net6/libMBIN.dll
-          /usr/bin/tar -zcvf ../MBINCompiler-linux-x64-dotnet6.tgz report.json mapping.json --directory=linux-x64-net6 MBINCompiler libMBIN.dll
+          /usr/bin/tar -zcvf MBINCompiler-linux-x64-dotnet6.tgz report.json mapping.json --directory=linux-x64-net6 MBINCompiler libMBIN.dll
           cp MBINCompiler-Ubuntu-net7.0/MBINCompiler.exe linux-x64-net7/MBINCompiler
-          cp MBINCompiler-Ubuntu-net7.0/libMBIN.dll linux-x64-net7/libMBIN.dll          
-          /usr/bin/tar -zcvf ../MBINCompiler-linux-x64-dotnet7.tgz report.json mapping.json --directory=linux-x64-net7 MBINCompiler libMBIN.dll
+          cp MBINCompiler-Ubuntu-net7.0/libMBIN.dll linux-x64-net7/libMBIN.dll
+          /usr/bin/tar -zcvf MBINCompiler-linux-x64-dotnet7.tgz report.json mapping.json --directory=linux-x64-net7 MBINCompiler libMBIN.dll
       - name: Get MBINCompiler tag version
         run: |
           echo "VERSION=$(./MBINCompiler.exe version | awk '{print $2}')" >> $GITHUB_ENV
