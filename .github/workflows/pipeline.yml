@@ -145,8 +145,8 @@ jobs:
             libMBIN-dotnet7.dll
             report.json
             mapping.json
-            linux-*/*
-            win-*/*
+            linux-*
+            win-*
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
       - name: Check if tag doesn't match version
