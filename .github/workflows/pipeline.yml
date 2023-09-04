@@ -105,27 +105,27 @@ jobs:
           mkdir -p linux-x64-net6
           mkdir -p linux-x64-net7
           cp MBINCompiler-Windows-net6.0/MBINCompiler.exe win-x64-net6/MBINCompiler.exe
-          cp MBINCompiler-Windows-net6.0/libMBIN.dll win-x64-net6/libMBIN.dll
           cp MBINCompiler-Windows-net7.0/MBINCompiler.exe win-x64-net7/MBINCompiler.exe
-          cp MBINCompiler-Windows-net7.0/libMBIN.dll win-x64-net7/libMBIN.dll
           cp MBINCompiler-Ubuntu-net6.0/MBINCompiler.exe linux-x64-net6/MBINCompiler
-          cp MBINCompiler-Ubuntu-net6.0/libMBIN.dll linux-x64-net6/libMBIN-linux.dll
           cp MBINCompiler-Ubuntu-net7.0/MBINCompiler.exe linux-x64-net7/MBINCompiler
-          cp MBINCompiler-Ubuntu-net7.0/libMBIN.dll linux-x64-net7/libMBIN.dll
-          cp savedata-mapping/mapping.json win-x64-net6
-          cp MBINCompiler-report/report.json win-x64-net6
-          cp savedata-mapping/mapping.json win-x64-net7
-          cp MBINCompiler-report/report.json win-x64-net7
-          cp savedata-mapping/mapping.json linux-x64-net6
-          cp MBINCompiler-report/report.json linux-x64-net6
-          cp savedata-mapping/mapping.json linux-x64-net7
-          cp MBINCompiler-report/report.json linux-x64-net7
           mv MBINCompiler-Windows-net6.0/MBINCompiler.exe MBINCompiler.exe
-          mv MBINCompiler-Windows-net6.0/libMBIN.dll libMBIN.dll
           mv MBINCompiler-Windows-net7.0/MBINCompiler.exe MBINCompiler-dotnet7.exe
+          cp MBINCompiler-Windows-net6.0/libMBIN.dll win-x64-net6/libMBIN.dll
+          cp MBINCompiler-Windows-net7.0/libMBIN.dll win-x64-net7/libMBIN.dll
+          cp MBINCompiler-Ubuntu-net6.0/libMBIN.dll linux-x64-net6/libMBIN.dll
+          cp MBINCompiler-Ubuntu-net7.0/libMBIN.dll linux-x64-net7/libMBIN.dll
+          mv MBINCompiler-Windows-net6.0/libMBIN.dll libMBIN.dll
           mv MBINCompiler-Windows-net7.0/libMBIN.dll libMBIN-dotnet7.dll
-          mv savedata-mapping/mapping.json mapping.json
+          cp MBINCompiler-report/report.json win-x64-net6/report.json
+          cp MBINCompiler-report/report.json win-x64-net/7report.json
+          cp MBINCompiler-report/report.json linux-x64-net6/report.json
+          cp MBINCompiler-report/report.json linux-x64-net7/report.json
           mv MBINCompiler-report/report.json report.json
+          cp savedata-mapping/mapping.json win-x64-net6/mapping.json
+          cp savedata-mapping/mapping.json win-x64-net7/mapping.json
+          cp savedata-mapping/mapping.json linux-x64-net6/mapping.json
+          cp savedata-mapping/mapping.json linux-x64-net7/mapping.json
+          mv savedata-mapping/mapping.json mapping.json
       - name: Get MBINCompiler tag version
         run: |
           echo "VERSION=$(./MBINCompiler.exe version | awk '{print $2}')" >> $GITHUB_ENV
