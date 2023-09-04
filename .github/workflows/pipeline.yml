@@ -117,7 +117,7 @@ jobs:
           mv MBINCompiler-Windows-net6.0/libMBIN.dll libMBIN.dll
           mv MBINCompiler-Windows-net7.0/libMBIN.dll libMBIN-dotnet7.dll
           cp MBINCompiler-report/report.json win-x64-net6/report.json
-          cp MBINCompiler-report/report.json win-x64-net/7report.json
+          cp MBINCompiler-report/report.json win-x64-net7/report.json
           cp MBINCompiler-report/report.json linux-x64-net6/report.json
           cp MBINCompiler-report/report.json linux-x64-net7/report.json
           mv MBINCompiler-report/report.json report.json
