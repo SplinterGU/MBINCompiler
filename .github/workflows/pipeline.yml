@@ -99,6 +99,7 @@ jobs:
       - name: Download files for release
         uses: actions/download-artifact@v3
       - name: Rename files for release
+        shell: bash
         run: |
           mkdir -p win-x64-net6
           mkdir -p win-x64-net7
