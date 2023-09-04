@@ -99,17 +99,27 @@ jobs:
       - name: Download files for release
         uses: actions/download-artifact@v3
       - name: Rename files for release
+        shell: bash
         run: |
-          mv MBINCompiler-Windows-net6.0/MBINCompiler.exe MBINCompiler.exe
-          mv MBINCompiler-Windows-net6.0/libMBIN.dll libMBIN.dll
-          mv MBINCompiler-Windows-net7.0/MBINCompiler.exe MBINCompiler-dotnet7.exe
-          mv MBINCompiler-Windows-net7.0/libMBIN.dll libMBIN-dotnet7.dll
-          mv MBINCompiler-Ubuntu-net6.0/MBINCompiler.exe MBINCompiler-linux-net6
-          mv MBINCompiler-Ubuntu-net6.0/libMBIN.dll libMBIN-linux-net6.dll
-          mv MBINCompiler-Ubuntu-net7.0/MBINCompiler.exe MBINCompiler-linux-net7
-          mv MBINCompiler-Ubuntu-net7.0/libMBIN.dll libMBIN-linux-net7.dll
-          mv savedata-mapping/mapping.json mapping.json
-          mv MBINCompiler-report/report.json report.json
+          mkdir -p win-x64-net7
+          mkdir -p linux-x64-net6
+          mkdir -p linux-x64-net7
+          cp MBINCompiler-Windows-net6.0/MBINCompiler.exe MBINCompiler.exe
+          cp MBINCompiler-Windows-net6.0/libMBIN.dll libMBIN.dll
+          cp MBINCompiler-Windows-net7.0/MBINCompiler.exe MBINCompiler-dotnet7.exe
+          cp MBINCompiler-Windows-net7.0/libMBIN.dll libMBIN-dotnet7.dll
+          cp MBINCompiler-report/report.json report.json
+          cp savedata-mapping/mapping.json mapping.json
+          7z a -tzip MBINCompiler-win-x64-dotnet6.zip MBINCompiler.exe libMBIN.dll report.json mapping.json
+          cp MBINCompiler-Windows-net7.0/MBINCompiler.exe win-x64-net7/MBINCompiler.exe
+          cp MBINCompiler-Windows-net7.0/libMBIN.dll win-x64-net7/libMBIN.dll
+          7z a -tzip MBINCompiler-win-x64-dotnet7.zip ./win-x64-net7/MBINCompiler.exe ./win-x64-net7/libMBIN.dll report.json mapping.json
+          cp MBINCompiler-Ubuntu-net6.0/MBINCompiler.exe linux-x64-net6/MBINCompiler
+          cp MBINCompiler-Ubuntu-net6.0/libMBIN.dll linux-x64-net6/libMBIN.dll
+          /usr/bin/tar -zcvf MBINCompiler-linux-x64-dotnet6.tgz report.json mapping.json --directory=linux-x64-net6 MBINCompiler libMBIN.dll
+          cp MBINCompiler-Ubuntu-net7.0/MBINCompiler.exe linux-x64-net7/MBINCompiler
+          cp MBINCompiler-Ubuntu-net7.0/libMBIN.dll linux-x64-net7/libMBIN.dll
+          /usr/bin/tar -zcvf MBINCompiler-linux-x64-dotnet7.tgz report.json mapping.json --directory=linux-x64-net7 MBINCompiler libMBIN.dll
       - name: Get MBINCompiler tag version
         run: |
           echo "VERSION=$(./MBINCompiler.exe version | awk '{print $2}')" >> $GITHUB_ENV
@@ -127,12 +137,12 @@ jobs:
             libMBIN.dll
             MBINCompiler-dotnet7.exe
             libMBIN-dotnet7.dll
-            MBINCompiler-linux-net6
-            libMBIN-linux-net6.dll
-            MBINCompiler-linux-net7
-            libMBIN-linux-net7.dll
             report.json
             mapping.json
+            MBINCompiler-win-x64-dotnet6.zip
+            MBINCompiler-win-x64-dotnet7.zip
+            MBINCompiler-linux-x64-dotnet6.tgz
+            MBINCompiler-linux-x64-dotnet7.tgz
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
       - name: Check if tag doesn't match version
